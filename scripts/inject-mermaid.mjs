@@ -14,7 +14,7 @@ const { document } = dom.window;
 
 // Find all code blocks with language-mermaid class and transform them
 const codeBlocks = document.querySelectorAll("code.language-mermaid");
-codeBlocks.forEach((codeBlock) => {
+for (const codeBlock of codeBlocks) {
   const pre = codeBlock.parentElement;
   if (pre && pre.tagName === "PRE") {
     // Create new mermaid pre element
@@ -25,7 +25,7 @@ codeBlocks.forEach((codeBlock) => {
     // Replace the old pre element with the new mermaid pre
     pre.parentNode.replaceChild(mermaidPre, pre);
   }
-});
+}
 
 // Get the updated HTML
 let html = dom.serialize();

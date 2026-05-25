@@ -7,11 +7,46 @@ paginate: true
 size: 16:9
 ---
 
-# Intro to Home Networking
+## Agenda (60 minutes)
 
-### Using Pi-hole to understand, control, and simplify your home network
+### 1. Welcome & Context (5 min)
 
-CodeHub meetup deck
+- Brief introductions
+- Why home networking matters
+- Common pain points: ads, tracking, slow and insecure DNS
+
+### 2. Understanding DNS Basics (10 min)
+
+- What is DNS and how it works
+- The problem: unfiltered DNS queries
+- Privacy and security implications
+
+### 3. Introducing Pi-hole (10 min)
+
+- What is Pi-hole?
+- How it works as a network-wide ad blocker
+- Key benefits: privacy, speed, control
+- Hardware requirements (Raspberry Pi, Docker, etc.)
+
+### 4. Installation Walkthrough (15 min)
+
+- Prerequisites and setup
+- Step-by-step installation process
+- Configuration basics
+- Integrating with your router
+
+### 5. Configuration & Customization (10 min)
+
+- Blocklists and whitelisting
+- Dashboard overview
+- Query logging and analytics
+- Advanced settings (conditional forwarding, etc.)
+
+### 6. Troubleshooting & Best Practices (5 min)
+
+- Common issues and solutions
+- Performance optimization
+- Maintenance tips
 
 ---
 
@@ -58,6 +93,7 @@ graph LR
 ```
 
 **Live demo steps:**
+
 1. Show network layout and device configuration
 2. Open Pi-hole admin dashboard
 3. Inspect recent queries in real-time
@@ -78,6 +114,6 @@ graph LR
 
 ## Questions?
 
-Pi-hole docs: https://docs.pi-hole.net/
+Pi-hole docs: [https://docs.pi-hole.net/](https://docs.pi-hole.net/)
 
 Thank you!
