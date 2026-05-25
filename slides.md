@@ -21,40 +21,87 @@ CodeHub meetup deck
 - Where Pi-hole fits in the stack
 - DNS, DHCP, and device discovery in plain language
 - A practical setup path you can repeat later
+- A little extra security
 
 ---
 
-## Home network map
+## Home network architecture
 
-- Internet connection
-- Router or gateway
-- Wi-Fi access point or mesh nodes
-- Client devices
-- Pi-hole as the DNS filter and visibility layer
-
----
-
-## Pi-hole in practice
-
-- Point clients or the router at Pi-hole for DNS
-- Filter obvious ad and telemetry domains
-- Use the query log to understand what devices are doing
-- Keep the setup simple enough for the rest of the household
-
----
-
-## Demo flow
-
-- Show the network layout
-- Open Pi-hole admin and inspect recent queries
-- Explain what a blocked request looks like
-- Call out any caveats before people copy the setup
+```mermaid
+graph TD
+    Internet["🌐 Internet"]
+    ISP["ISP/Modem"]
+    Router["Router"]
+    WiFi["Wi-Fi AP"]
+    PiHole["🔒 Pi-hole<br/>(DNS Server)"]
+    Devices["📱 Client Devices<br/>Phones, Laptops, Smart TV"]
+    
+    Internet -->|Connection| ISP
+    ISP -->|LAN| Router
+    Router -->|Ethernet| PiHole
+    Router -->|Wi-Fi| WiFi
+    WiFi -->|DHCP + DNS| Devices
+    Devices -->|DNS Queries| PiHole
+    PiHole -->|Block/Forward| Router
+```
 
 ---
 
-## Wrap-up
+## DNS query flow with Pi-hole
 
-- Start with visibility before adding complexity
-- Keep DNS and DHCP decisions deliberate
-- Use Pi-hole as a tool for learning, not just blocking ads
-- Leave room for gradual improvement
+```mermaid
+sequenceDiagram
+    participant Device as Device
+    participant PiHole as Pi-hole
+    participant Blocklist as Blocklist
+    participant Upstream as Upstream DNS
+    
+    Device->>PiHole: DNS query for ads.example.com
+    PiHole->>Blocklist: Check against lists
+    alt Blocked Domain
+        Blocklist-->>PiHole: ✗ In blocklist
+        PiHole-->>Device: NXDOMAIN (blocked)
+    else Allowed Domain
+        Blocklist-->>PiHole: ✓ Not in list
+        PiHole->>Upstream: Forward to 8.8.8.8
+        Upstream-->>PiHole: IP address
+        PiHole-->>Device: ✓ Return result
+    end
+```
+
+---
+
+## Demo: What we'll show
+
+```mermaid
+graph LR
+    A["Query Log"] -->|Live traffic| B["Blocked Domains"]
+    B -->|Ads, Trackers| C["Client Analysis"]
+    C -->|Who requests what| D["Dashboard"]
+    D -->|Stats & Config| E["Blocklists"]
+```
+
+**Live demo steps:**
+1. Show network layout and device configuration
+2. Open Pi-hole admin dashboard
+3. Inspect recent queries in real-time
+4. Highlight blocked vs allowed domains
+5. Review performance impact and statistics
+
+---
+
+## Key takeaways
+
+- **Visibility first**: Query logs show you what's happening on your network
+- **DNS is powerful**: One DNS change affects all devices automatically
+- **Block thoughtfully**: Start conservative, expand blocklists gradually
+- **Learn & iterate**: Use Pi-hole as a learning tool, not just an ad blocker
+- **Keep it simple**: Simple setups are easier to maintain and explain to others
+
+---
+
+## Questions?
+
+Pi-hole docs: https://docs.pi-hole.net/
+
+Thank you!
