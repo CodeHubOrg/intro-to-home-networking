@@ -49,6 +49,21 @@ For an organization project site, the live URL will usually be:
 
 `https://codehuborg.github.io/intro-to-home-networking/`
 
+## Workflow
+
+This repository follows gitflow for version control:
+
+- `main` branch: stable, release-ready code that is deployed to GitHub Pages.
+- `develop` branch: integration branch for features and fixes.
+- Feature/fix branches: branch from `develop` with naming pattern `feature/<slug>` or `fix/<slug>`.
+
+**Workflow:**
+1. Create a feature or fix branch from `develop`.
+2. Make your changes, test locally with `pnpm dev`.
+3. Push the branch and open a PR against `develop`.
+4. After review and merge to `develop`, the build test workflow (`test-build.yml`) runs.
+5. When ready for release, merge `develop` into `main` to trigger the Pages deployment.
+
 ## Next edits
 
 If you want to expand the deck later, add images or diagrams under an `assets/` directory and reference them from `slides.md`.
