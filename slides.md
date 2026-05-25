@@ -43,7 +43,7 @@ style: |
 
 ### 1. Welcome & Context (5 min)
 
-- Brief introduction
+- Brief introductions
 - Why home networking matters
 - Common pain points: ads, tracking, slow and insecure DNS
 
@@ -221,6 +221,8 @@ graph LR
 - **Keep it simple**: Simple setups are easier to maintain and explain to others
 
 ---
+
+## Questions?
 
 Pi-hole docs: [https://docs.pi-hole.net/](https://docs.pi-hole.net/)
 

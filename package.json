@@ -7,7 +7,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "pnpm exec marp slides.md --server --allow-local-files",
+    "dev": "pnpm exec marp --server . --allow-local-files",
     "build": "node scripts/build.mjs",
     "serve": "http-server dist -p 8001 -o",
     "preview": "pnpm build && pnpm serve",
