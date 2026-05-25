@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "packageManager": "pnpm@11.3.0",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.19.0"
   },
   "scripts": {
     "dev": "pnpm exec marp --server . --allow-local-files",
@@ -23,5 +23,8 @@
     "http-server": "^14.1.0",
     "jsdom": "^29.1.1",
     "markdownlint-cli2": "^0.15.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@biomejs/biome"]
   }
 }
