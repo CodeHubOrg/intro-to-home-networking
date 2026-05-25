@@ -28,14 +28,14 @@ CodeHub meetup deck
 ## Home network architecture
 
 ```mermaid
-graph TD
+graph LR
     Internet["🌐 Internet"]
     ISP["ISP/Modem"]
     Router["Router"]
     WiFi["Wi-Fi AP"]
     PiHole["🔒 Pi-hole<br/>(DNS Server)"]
     Devices["📱 Client Devices<br/>Phones, Laptops, Smart TV"]
-    
+
     Internet -->|Connection| ISP
     ISP -->|LAN| Router
     Router -->|Ethernet| PiHole
@@ -43,30 +43,6 @@ graph TD
     WiFi -->|DHCP + DNS| Devices
     Devices -->|DNS Queries| PiHole
     PiHole -->|Block/Forward| Router
-```
-
----
-
-## DNS query flow with Pi-hole
-
-```mermaid
-sequenceDiagram
-    participant Device as Device
-    participant PiHole as Pi-hole
-    participant Blocklist as Blocklist
-    participant Upstream as Upstream DNS
-    
-    Device->>PiHole: DNS query for ads.example.com
-    PiHole->>Blocklist: Check against lists
-    alt Blocked Domain
-        Blocklist-->>PiHole: ✗ In blocklist
-        PiHole-->>Device: NXDOMAIN (blocked)
-    else Allowed Domain
-        Blocklist-->>PiHole: ✓ Not in list
-        PiHole->>Upstream: Forward to 8.8.8.8
-        Upstream-->>PiHole: IP address
-        PiHole-->>Device: ✓ Return result
-    end
 ```
 
 ---
