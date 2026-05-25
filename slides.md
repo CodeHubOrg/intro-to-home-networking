@@ -43,7 +43,7 @@ style: |
 
 ### 1. Welcome & Context (5 min)
 
-- Brief introductions
+- Brief introduction
 - Why home networking matters
 - Common pain points: ads, tracking, slow and insecure DNS
 
@@ -83,11 +83,19 @@ style: |
 
 ---
 
-## 1. Welcome & Context (5 min)
+## 1. Welcome & Context
 
-- Brief introductions
-- Why home networking matters
-- Common pain points: ads, tracking, slow and insecure DNS
+- A brief introduction
+- Our sponsors
+- Rolling Q&A
+
+---
+
+### Why home networking matters
+
+---
+
+### Common pain points: ads, tracking, slow and insecure DNS
 
 ---
 
@@ -113,15 +121,19 @@ graph LR
 
 ---
 
-## 2. Understanding DNS Basics (10 min)
+## 2. Understanding DNS Basics
 
 - What is DNS and how it works
-- The problem: unfiltered DNS queries
+
+---
+
+### The problem: unfiltered DNS queries
+
 - Privacy and security implications
 
 ---
 
-## Demo: Default setup
+### Demo: Default setup
 
 ```mermaid
 graph LR
@@ -141,7 +153,7 @@ graph LR
 
 ---
 
-### 3. Introducing Pi-hole (10 min)
+## 3. Introducing Pi-hole
 
 - What is Pi-hole?
 - How it works as a network-wide ad blocker
@@ -156,17 +168,9 @@ graph LR
     D -->|Stats & Config| E["Blocklists"]
 ```
 
-**Live demo steps:**
-
-1. Show network layout and device configuration
-2. Open Pi-hole admin dashboard
-3. Inspect recent queries in real-time
-4. Highlight blocked vs allowed domains
-5. Review performance impact and statistics
-
 ---
 
-### 4. Installation Walkthrough (15 min)
+## 4. Installation Walkthrough
 
 - Prerequisites and setup
 - Step-by-step installation process
@@ -191,7 +195,7 @@ graph LR
 
 ---
 
-### 5. Configuration & Customization (10 min)
+## 5. Configuration & Customization
 
 - Blocklists and whitelisting
 - Dashboard overview
@@ -200,14 +204,15 @@ graph LR
 
 ---
 
-### 6. Troubleshooting & Best Practices (5 min)
+## 6. Troubleshooting & Best Practices
 
 - Common issues and solutions
 - Performance optimization
 - Maintenance tips
 
+---
 
-## Key takeaways
+## 7. Key takeaways
 
 - **Visibility first**: Query logs show you what's happening on your network
 - **DNS is powerful**: One DNS change affects all devices automatically
@@ -216,8 +221,6 @@ graph LR
 - **Keep it simple**: Simple setups are easier to maintain and explain to others
 
 ---
-
-## Questions?
 
 Pi-hole docs: [https://docs.pi-hole.net/](https://docs.pi-hole.net/)
 
