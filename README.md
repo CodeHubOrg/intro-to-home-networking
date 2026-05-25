@@ -4,7 +4,7 @@ Marp-based slides for a CodeHub meetup talk on home networking and Pi-hole.
 
 ## Requirements
 
-- Node.js 20 or newer
+- Node.js 20.19 or newer
 - pnpm 11 or newer
 
 ## Local development
@@ -16,7 +16,9 @@ pnpm install
 pnpm dev
 ```
 
-Marp serves the deck at a local URL. Open that URL in your browser to present or review the deck.
+`pnpm dev` builds `dist/index.html` (including Mermaid transformation), serves `dist/`, and rebuilds when `slides.md` changes.
+
+By default it uses port `8080`; if `8080` is busy it automatically uses the next available port and prints the URL.
 
 ## Build and export
 
