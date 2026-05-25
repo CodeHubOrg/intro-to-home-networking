@@ -2,6 +2,9 @@ import { execFileSync } from 'node:child_process';
 import { constants } from 'node:fs';
 import { access, cp, mkdir, rm } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const rootDir = process.cwd();
 const distDir = path.join(rootDir, 'dist');
@@ -10,7 +13,7 @@ const assetsDir = path.join(rootDir, 'assets');
 const outputFile = path.join(distDir, 'index.html');
 
 function runMarpBuild() {
-  execFileSync('pnpm', ['exec', 'marp', slidesFile, '--allow-local-files', '--output', outputFile], {
+  execFileSync('pnpm', ['exec', 'marp', slidesFile, '--allow-local-files', '--config-file', 'marp.config.js', '--output', outputFile], {
     stdio: 'inherit',
   });
 }
@@ -26,8 +29,12 @@ async function main() {
     // The deck starts without images. Copy assets only when they exist.
   }
 
-  await runMarpBuild();
-}
+  await runMarpBuild();  
+  // Inject Mermaid.js into the generated HTML
+  execFileSync('node', [path.join(__dirname, 'inject-mermaid.mjs')], {
+    cwd: distDir,
+    stdio: 'inherit',
+  });}
 
 main().catch((error) => {
   console.error(error);

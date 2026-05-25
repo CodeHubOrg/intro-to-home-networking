@@ -9,10 +9,19 @@
   "scripts": {
     "dev": "pnpm exec marp slides.md --server --allow-local-files",
     "build": "node scripts/build.mjs",
+    "serve": "http-server dist -p 8001 -o",
+    "preview": "pnpm build && pnpm serve",
     "export": "pnpm exec marp slides.md --pdf --allow-local-files --output dist/slides.pdf",
-    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\""
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "lint:js": "biome lint scripts/",
+    "lint:md": "markdownlint-cli2 slides.md",
+    "lint": "pnpm lint:js && pnpm lint:md"
   },
   "devDependencies": {
-    "@marp-team/marp-cli": "^4.1.0"
+    "@biomejs/biome": "^1.9.4",
+    "@marp-team/marp-cli": "^4.1.0",
+    "http-server": "^14.1.0",
+    "jsdom": "^29.1.1",
+    "markdownlint-cli2": "^0.15.0"
   }
 }
