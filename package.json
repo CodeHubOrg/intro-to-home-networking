@@ -1,0 +1,18 @@
+{
+  "name": "intro-to-home-networking",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.3.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm exec marp slides.md --server --allow-local-files",
+    "build": "node scripts/build.mjs",
+    "export": "pnpm exec marp slides.md --pdf --allow-local-files --output dist/slides.pdf",
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\""
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.1.0"
+  }
+}
