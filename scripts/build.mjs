@@ -29,12 +29,14 @@ async function main() {
     // The deck starts without images. Copy assets only when they exist.
   }
 
-  await runMarpBuild();  
+  await runMarpBuild();
+
   // Inject Mermaid.js into the generated HTML
   execFileSync('node', [path.join(__dirname, 'inject-mermaid.mjs')], {
     cwd: distDir,
     stdio: 'inherit',
-  });}
+  });
+}
 
 main().catch((error) => {
   console.error(error);

@@ -27,41 +27,32 @@ for (const codeBlock of codeBlocks) {
   }
 }
 
-// Get the updated HTML
-let html = dom.serialize();
+// Inject Mermaid library and initialisation using the DOM rather than string
+// replacement, so the serialised output is always well-formed.
+// Version is pinned to avoid unexpected upstream changes within v10.
+const MERMAID_VERSION = "10.9.3";
+const MERMAID_CDN = `https://cdn.jsdelivr.net/npm/mermaid@${MERMAID_VERSION}/dist/mermaid.min.js`;
 
-// Add Mermaid.js library before closing body tag if not already present
-if (!html.includes("mermaid.min.js")) {
-  const mermaidScript = `<style>
-section pre.mermaid {
-  margin: 0.2em auto;
+if (!document.querySelector(`script[src*="mermaid"]`)) {
+  const loaderScript = document.createElement("script");
+  loaderScript.src = MERMAID_CDN;
+  document.body.appendChild(loaderScript);
+
+  const initScript = document.createElement("script");
+  initScript.textContent = [
+    'mermaid.initialize({',
+    '  startOnLoad: true,',
+    '  theme: "default",',
+    '  flowchart: { useMaxWidth: true, nodeSpacing: 20, rankSpacing: 24 },',
+    '  sequence: { actorMargin: 24, messageMargin: 14, diagramMarginY: 8 },',
+    '  themeVariables: { fontSize: "14px" },',
+    '});',
+    'mermaid.contentLoaded();',
+  ].join("\n");
+  document.body.appendChild(initScript);
 }
 
-section pre.mermaid svg {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  max-height: 52vh;
-  width: auto;
-  height: auto;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"><\/script>
-<script>
-mermaid.initialize({
-  startOnLoad: true,
-  theme: "default",
-  flowchart: { useMaxWidth: true, nodeSpacing: 20, rankSpacing: 24 },
-  sequence: { actorMargin: 24, messageMargin: 14, diagramMarginY: 8 },
-  themeVariables: { fontSize: "14px" },
-});
-mermaid.contentLoaded();
-<\/script>
-</body>`;
-
-  html = html.replace("</body>", mermaidScript);
-}
-
+const html = dom.serialize();
 writeFileSync(outputFile, html, "utf-8");
 console.log(
   `✓ Transformed ${codeBlocks.length} mermaid code block(s) and injected library`,
