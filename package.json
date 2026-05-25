@@ -7,7 +7,7 @@
     "node": ">=20.19.0"
   },
   "scripts": {
-    "dev": "pnpm exec marp --server . --allow-local-files",
+    "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
     "serve": "http-server dist -p 8001 -o",
     "preview": "pnpm build && pnpm serve",
