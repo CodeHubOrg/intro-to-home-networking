@@ -1,2 +1,7 @@
+onlyBuiltDependencies:
+  - '@biomejs/biome'
 # This repo is a single-package project (no workspace).
 # Build script allowlist is declared in package.json under "pnpm.onlyBuiltDependencies".
+
+allowBuilds:
+  '@biomejs/biome': set this to true or false
