@@ -16,7 +16,8 @@ pnpm install
 pnpm dev
 ```
 
-`pnpm dev` builds `dist/index.html` (including Mermaid transformation), serves `dist/`, and rebuilds when `slides.md` changes.
+`pnpm dev` builds `dist/index.html` (including Mermaid transformation),
+serves `dist/`, and rebuilds when `slides.md` changes.
 
 By default it uses port `8080`; if `8080` is busy it automatically uses the next available port and prints the URL.
 
@@ -35,6 +36,29 @@ pnpm export
 ```
 
 The HTML build is written to `dist/index.html`. The PDF export is written to `dist/slides.pdf`.
+
+## Images and sponsor logos
+
+Store images under `assets/` and reference them from `slides.md`
+with relative paths such as `./assets/sponsors/acme.png`.
+
+That works in both places because:
+
+- local development serves `dist/index.html`
+- the build copies `assets/` to `dist/assets/`
+- GitHub Pages publishes the same built files from `dist/`
+
+Avoid absolute URLs such as `/assets/acme.png`, because a project
+site is published under `/intro-to-home-networking/` rather than the
+domain root.
+
+Standard Markdown image:
+
+```md
+![width:220px](./assets/sponsors/acme.png)
+```
+
+While `pnpm dev` is running, changes to files inside `assets/` trigger a rebuild automatically.
 
 ## GitHub Pages deployment
 
@@ -60,6 +84,11 @@ This repository follows gitflow for version control:
 - Feature/fix branches: branch from `develop` with naming pattern `feature/<slug>` or `fix/<slug>`.
 
 **Workflow:**
+
+Follow gitflow strictly for day-to-day changes: create a new feature or fix
+branch from `develop` before you start editing, and avoid making working
+changes directly on `develop`.
+
 1. Create a feature or fix branch from `develop`.
 2. Make your changes, test locally with `pnpm dev`.
 3. Push the branch and open a PR against `develop`.
