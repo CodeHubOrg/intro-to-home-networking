@@ -96,7 +96,7 @@ style: |
 
 ### A bit about me
 
-I'm on [LinkedIn](www.linkedin.com/in/jamesrennison)
+I'm on [LinkedIn](https://www.linkedin.com/in/jamesrennison)
 
 ### Our sponsors
 

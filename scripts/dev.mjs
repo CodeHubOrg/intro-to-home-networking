@@ -90,51 +90,59 @@ async function collectAssetDirectories(directory, directories = []) {
   return directories;
 }
 
-async function syncAssetWatchers() {
-  try {
-    await access(assetsDir);
-  } catch {
-    for (const watcher of assetWatchers.values()) {
-      watcher.close();
-    }
+let syncAssetWatchersQueue = Promise.resolve();
 
-    assetWatchers.clear();
-    return;
-  }
-
-  const directories = await collectAssetDirectories(assetsDir);
-  const expectedDirectories = new Set(directories);
-
-  for (const watchedDirectory of assetWatchers.keys()) {
-    if (expectedDirectories.has(watchedDirectory)) {
-      continue;
-    }
-
-    assetWatchers.get(watchedDirectory)?.close();
-    assetWatchers.delete(watchedDirectory);
-  }
-
-  for (const directory of directories) {
-    if (assetWatchers.has(directory)) {
-      continue;
-    }
-
-    const watcher = watch(directory, (eventType, filename) => {
-      const changedPath = filename ? path.relative(rootDir, path.join(directory, filename.toString())) : path.relative(rootDir, directory);
-      queueBuild(`asset ${eventType} detected in ${changedPath}`);
-
-      if (eventType === 'rename') {
-        void syncAssetWatchers();
+function syncAssetWatchers() {
+  const run = async () => {
+    try {
+      await access(assetsDir);
+    } catch {
+      for (const watcher of assetWatchers.values()) {
+        watcher.close();
       }
-    });
 
-    watcher.on('error', (error) => {
-      console.error(`[dev] Asset watcher error in ${path.relative(rootDir, directory)}:`);
-      console.error(error);
-    });
+      assetWatchers.clear();
+      return;
+    }
 
-    assetWatchers.set(directory, watcher);
-  }
+    const directories = await collectAssetDirectories(assetsDir);
+    const expectedDirectories = new Set(directories);
+
+    for (const watchedDirectory of assetWatchers.keys()) {
+      if (expectedDirectories.has(watchedDirectory)) {
+        continue;
+      }
+
+      assetWatchers.get(watchedDirectory)?.close();
+      assetWatchers.delete(watchedDirectory);
+    }
+
+    for (const directory of directories) {
+      if (assetWatchers.has(directory)) {
+        continue;
+      }
+
+      const watcher = watch(directory, (eventType, filename) => {
+        const changedPath = filename ? path.relative(rootDir, path.join(directory, filename.toString())) : path.relative(rootDir, directory);
+        queueBuild(`asset ${eventType} detected in ${changedPath}`);
+
+        if (eventType === 'rename') {
+          void syncAssetWatchers();
+        }
+      });
+
+      watcher.on('error', (error) => {
+        console.error(`[dev] Asset watcher error in ${path.relative(rootDir, directory)}:`);
+        console.error(error);
+      });
+
+      assetWatchers.set(directory, watcher);
+    }
+  };
+
+  const syncPromise = syncAssetWatchersQueue.then(run, run);
+  syncAssetWatchersQueue = syncPromise.catch(() => {});
+  return syncPromise;
 }
 
 async function main() {
