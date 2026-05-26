@@ -94,17 +94,37 @@ style: |
 
 ## 1. Welcome & Context
 
-- A brief introduction
-- Our sponsors
-- Rolling Q&A
+### A bit about me
+
+I'm on [LinkedIn](www.linkedin.com/in/jamesrennison)
+
+### Our sponsors
+
+**The generous hosts of our IRL meetups**
+
+![width:220px](./assets/sponsors/sponsors-desklodge.png)
+
+**The magnificent financial contributors**
+
+![width:220px](./assets/sponsors/sponsors-io-academy.webp)
+
+**The newest sponsor and hosts of our website**
+
+![width:220px](./assets/sponsors/sponsors-tuppenny-well.svg)
+
+### Any questions?
+
+Rolling Q&A - please don't stand on ceremony
 
 ---
 
-### Why home networking matters
+## Why home networking matters
 
----
+### Common pain points
 
-### Common pain points: ads, tracking, slow and insecure DNS
+- Dubious hardware from your ISP
+- Ads and tracking
+- Slow and insecure DNS
 
 ---
 
