@@ -31,7 +31,7 @@ async function main() {
 
   await runMarpBuild();
 
-  // Inject Mermaid.js into the generated HTML
+  // Render Mermaid blocks into SVG using Kroki.
   execFileSync('node', [path.join(__dirname, 'inject-mermaid.mjs')], {
     cwd: distDir,
     stdio: 'inherit',

@@ -34,13 +34,9 @@ style: |
         font-size: 0.82em;
     }
 
-    section pre.mermaid {
-        margin: 0.2em auto;
-    }
-
-    section pre.mermaid svg {
+    section img.mermaid-diagram {
         display: block;
-        margin: 0 auto;
+        margin: 0.2em auto;
         max-width: 100%;
         max-height: 52vh;
         width: auto;
@@ -131,13 +127,14 @@ Rolling Q&A - please don't stand on ceremony
 ### Home network architecture
 
 ```mermaid
-graph LR
-    Internet["🌐 Internet"]
+%%{init: {"flowchart": {"htmlLabels": false}}}%%
+graph TD
+    Internet["Internet"]
     ISP["ISP/Modem"]
     Router["Router"]
     WiFi["Wi-Fi AP"]
-    PiHole["🔒 Pi-hole<br/>(DNS Server)"]
-    Devices["📱 Client Devices<br/>Phones, Laptops, Smart TV"]
+    PiHole["Pi-hole (DNS Server)"]
+    Devices["Client Devices"]
 
     Internet -->|Connection| ISP
     ISP -->|LAN| Router
@@ -165,7 +162,8 @@ graph LR
 ### Demo: Default setup
 
 ```mermaid
-graph LR
+%%{init: {"flowchart": {"htmlLabels": false}}}%%
+graph TD
     A["Query Log"] -->|Live traffic| B["Blocked Domains"]
     B -->|Ads, Trackers| C["Client Analysis"]
     C -->|Who requests what| D["Dashboard"]
@@ -190,7 +188,8 @@ graph LR
 - Hardware requirements (Raspberry Pi, Docker, etc.)
 
 ```mermaid
-graph LR
+%%{init: {"flowchart": {"htmlLabels": false}}}%%
+graph TD
     A["Query Log"] -->|Live traffic| B["Blocked Domains"]
     B -->|Ads, Trackers| C["Client Analysis"]
     C -->|Who requests what| D["Dashboard"]
@@ -207,7 +206,8 @@ graph LR
 - Integrating with your router
 
 ```mermaid
-graph LR
+%%{init: {"flowchart": {"htmlLabels": false}}}%%
+graph TD
     A["Query Log"] -->|Live traffic| B["Blocked Domains"]
     B -->|Ads, Trackers| C["Client Analysis"]
     C -->|Who requests what| D["Dashboard"]
