@@ -8,6 +8,7 @@ on:
       - slides.md
       - assets/**
       - scripts/**
+      - docker-compose.kroki.yml
       - package.json
       - pnpm-lock.yaml
       - .github/workflows/deploy-pages.yml
@@ -35,14 +36,37 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.19.0
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Start Kroki services
+        run: docker compose -f docker-compose.kroki.yml up -d
+
+      - name: Wait for Kroki to become ready
+        run: |
+          for attempt in {1..30}; do
+            if curl -fsS http://127.0.0.1:8000/health > /dev/null; then
+              echo "Kroki is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+
+          echo "Kroki failed to become ready" >&2
+          docker compose -f docker-compose.kroki.yml logs >&2 || true
+          exit 1
+
       - name: Build slides
+        env:
+          KROKI_ENDPOINT: http://127.0.0.1:8000
         run: pnpm build
+
+      - name: Stop Kroki services
+        if: always()
+        run: docker compose -f docker-compose.kroki.yml down --remove-orphans
 
       - name: Add GitHub Pages marker
         run: touch dist/.nojekyll
