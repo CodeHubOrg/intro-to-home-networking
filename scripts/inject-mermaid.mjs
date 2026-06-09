@@ -7,7 +7,9 @@ const distDir = process.cwd();
 const outputFile = path.join(distDir, "index.html");
 const diagramsDir = path.join(distDir, "assets", "diagrams");
 const krokiEndpoint = (process.env.KROKI_ENDPOINT ?? "http://127.0.0.1:8000").replace(/\/$/, "");
-const krokiTimeoutMs = Number(process.env.KROKI_TIMEOUT_MS ?? "20000");
+const krokiTimeoutMs = Number.isFinite(Number(process.env.KROKI_TIMEOUT_MS))
+  ? Number(process.env.KROKI_TIMEOUT_MS)
+  : 20000;
 const failOnError = (process.env.KROKI_FAIL_ON_ERROR ?? "true").toLowerCase() !== "false";
 
 const htmlContent = readFileSync(outputFile, "utf-8");

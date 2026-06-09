@@ -43,8 +43,9 @@ Build the static site for GitHub Pages:
 pnpm build
 ```
 
-`pnpm build` now renders Mermaid diagrams at build time by sending diagram text
-to Kroki and embedding the returned SVG in `dist/index.html`.
+`pnpm build` renders Mermaid diagrams at build time by sending diagram source to
+Kroki and saving the returned SVGs as files under `dist/assets/diagrams/`. Each
+diagram is referenced from `dist/index.html` as an `<img>` tag.
 
 Export a PDF copy of the deck:
 
