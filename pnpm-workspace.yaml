@@ -1,2 +1,4 @@
+allowBuilds:
+  '@fission-ai/openspec': true
 onlyBuiltDependencies:
   - '@biomejs/biome'
