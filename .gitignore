@@ -3,3 +3,6 @@ dist/
 .vscode/
 .DS_Store
 *.log
+
+# Claude Code local settings (personal permission allowlist)
+.claude/settings.local.json
