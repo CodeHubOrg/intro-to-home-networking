@@ -1,9 +1,6 @@
 project:
   type: default
 
-title: "Improve your home network security and privacy with Pi-hole"
-author: ""
-
 format:
   revealjs:
     theme: [dark, custom.scss]

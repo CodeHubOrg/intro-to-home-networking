@@ -9,5 +9,5 @@ dist/
 **/*.quarto_ipynb
 
 # Quarto render output
-/slides.html
+/index.html
 /slides_files/

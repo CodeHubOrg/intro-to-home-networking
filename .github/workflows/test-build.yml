@@ -12,9 +12,7 @@ on:
       - _quarto.yml
       - custom.scss
       - assets/**
-      - package.json
-      - pnpm-lock.yaml
-      - pnpm-workspace.yaml
+      - _extensions/**
       - .github/workflows/test-build.yml
   pull_request:
     paths:
@@ -22,9 +20,7 @@ on:
       - _quarto.yml
       - custom.scss
       - assets/**
-      - package.json
-      - pnpm-lock.yaml
-      - pnpm-workspace.yaml
+      - _extensions/**
 
 jobs:
   build:
@@ -43,20 +39,8 @@ jobs:
           curl -fsSL https://d2lang.com/install.sh | sh -s -- --version v0.7.1 --prefix "$HOME/.local"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.19.0
-          cache: pnpm
-
-      - name: Install Node dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Build slides
         run: quarto render slides.qmd
 
       - name: Verify output exists
-        run: test -f slides.html && echo "Build successful: slides.html exists"
+        run: test -f index.html && echo "Build successful: index.html exists"

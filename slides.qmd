@@ -1,6 +1,9 @@
 ---
 title: "Intro to Home Networking"
 subtitle: "Improve your home network security and privacy with Pi-hole"
+format:
+  revealjs:
+    output-file: index.html
 ---
 
 ## Agenda (60 minutes)
