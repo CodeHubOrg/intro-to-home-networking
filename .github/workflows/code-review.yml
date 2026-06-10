@@ -4,15 +4,16 @@ name: Code Review
 # Authenticated with a Claude Pro/Max subscription via an OAuth token
 # (repo secret CLAUDE_CODE_OAUTH_TOKEN, generated locally with `claude setup-token`).
 #
-# To re-review on every push as well, add `synchronize` (and optionally
-# `reopened`) to the `types` list below.
+# `reopened` lets you re-run a review by closing and reopening a PR.
+# To re-review on every push as well, add `synchronize` to the `types` list.
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: read
   pull-requests: write
+  id-token: write # required by claude-code-action to fetch an OIDC token
 
 jobs:
   review:
