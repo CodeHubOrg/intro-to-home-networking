@@ -1,0 +1,13 @@
+/*-- scss:rules --*/
+
+// Let slide content scroll vertically when it overflows, instead of being
+// clipped (Marp-style behaviour). reveal.js sets inline `top`/`height` on each
+// section to position it, so these rules need `!important` to take effect.
+.reveal .slides > section,
+.reveal .slides > section > section {
+  height: 100% !important;
+  max-height: 100% !important;
+  top: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}

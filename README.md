@@ -1,98 +1,50 @@
 # Intro to Home Networking
 
-Marp-based slides for a CodeHub meetup talk on home networking and Pi-hole.
+Quarto + reveal.js slides for a CodeHub meetup talk on home networking and Pi-hole.
 
 ## Requirements
 
-- Node.js 20.19 or newer
-- pnpm 11 or newer
-- Docker with Compose support (required to render Mermaid diagrams through Kroki)
+- [Quarto](https://quarto.org/) 1.9.38 or newer
+- [D2](https://d2lang.com/) 0.7.1 or newer
+- Node.js 20.19 or newer and pnpm 11 or newer (for the OpenSpec workflow)
 
 ## Local development
 
-Install dependencies and start the local slide server:
+Install Node dependencies:
 
 ```bash
 pnpm install
-pnpm kroki:up
-pnpm dev
 ```
 
-`pnpm dev` builds `dist/index.html` (including Kroki Mermaid rendering),
-serves `dist/`, and rebuilds when `slides.md` changes.
-
-By default it uses port `8080`; if `8080` is busy it automatically uses the next available port and prints the URL.
-
-When you are done, stop local Kroki services:
+Render the slides:
 
 ```bash
-pnpm kroki:down
+quarto render slides.qmd
 ```
 
-If Kroki is running on a different host/port, set the endpoint before running `pnpm dev` or `pnpm build`:
-
-```bash
-KROKI_ENDPOINT=http://127.0.0.1:8000 pnpm build
-```
-
-## Build and export
-
-Build the static site for GitHub Pages:
-
-```bash
-pnpm build
-```
-
-`pnpm build` renders Mermaid diagrams at build time by sending diagram source to
-Kroki and saving the returned SVGs as files under `dist/assets/diagrams/`. Each
-diagram is referenced from `dist/index.html` as an `<img>` tag.
-
-Export a PDF copy of the deck:
-
-```bash
-pnpm export
-```
-
-The HTML build is written to `dist/index.html`. The PDF export is written to `dist/slides.pdf`.
+Output is written to `slides.html`. Open it in any browser.
 
 ## Images and sponsor logos
 
-Store images under `assets/` and reference them from `slides.md`
+Store images under `assets/` and reference them from `slides.qmd`
 with relative paths such as `./assets/sponsors/acme.png`.
 
-That works in both places because:
-
-- local development serves `dist/index.html`
-- the build copies `assets/` to `dist/assets/`
-- GitHub Pages publishes the same built files from `dist/`
-
-Avoid absolute URLs such as `/assets/acme.png`, because a project
-site is published under `/intro-to-home-networking/` rather than the
-domain root.
-
-Standard Markdown image:
-
 ```md
-![width:220px](./assets/sponsors/acme.png)
+![](./assets/sponsors/acme.png){width=220px}
 ```
-
-While `pnpm dev` is running, changes to files inside `assets/` trigger a rebuild automatically.
 
 ## GitHub Pages deployment
 
-This repo is designed to deploy from GitHub Actions to GitHub Pages.
+This repo deploys to GitHub Pages via GitHub Actions.
 
-1. Create a new repository under the CodeHubOrg organization with the name `intro-to-home-networking`.
-2. Push this folder to the `main` branch.
-3. In the repository settings, set Pages source to GitHub Actions.
+1. Create a repository under the CodeHubOrg organization named `intro-to-home-networking`.
+2. Push to the `main` branch.
+3. In repository settings, set the Pages source to the `gh-pages` branch.
 4. Wait for the first workflow run to finish, then open the published Pages URL.
 
-Deployment and CI builds start Kroki containers in GitHub Actions before running
-`pnpm build`, so published output matches local build-time rendering.
+Quarto publishes via `quarto publish gh-pages`, which pushes the rendered output to the `gh-pages` branch.
 
 ## Repo URL
-
-For an organization project site, the live URL will usually be:
 
 `https://codehuborg.github.io/intro-to-home-networking/`
 
@@ -104,23 +56,20 @@ This repository follows gitflow for version control:
 - `develop` branch: integration branch for features and fixes.
 - Feature/fix branches: branch from `develop` with naming pattern `feature/<slug>` or `fix/<slug>`.
 
-**Workflow:**
-
-Follow gitflow strictly for day-to-day changes: create a new feature or fix
-branch from `develop` before you start editing, and avoid making working
-changes directly on `develop`.
+**Day-to-day:**
 
 1. Create a feature or fix branch from `develop`.
-2. Make your changes, test locally with `pnpm dev`.
+2. Make your changes, preview locally with `quarto render slides.qmd`.
 3. Push the branch and open a PR against `develop`.
-4. After review and merge to `develop`, the build test workflow (`test-build.yml`) runs.
-5. When ready for release, merge `develop` into `main` to trigger the Pages deployment.
+4. After review and merge, the test-build workflow runs automatically.
+5. When ready for release, merge `develop` into `main` to trigger Pages deployment.
 
-Both workflows use Kroki:
+Workflows:
 
-- `.github/workflows/test-build.yml` validates lint/build with Kroki on push and PR.
-- `.github/workflows/deploy-pages.yml` publishes Pages after pushes to `main`.
+- `.github/workflows/test-build.yml` — validates the build on pushes and PRs.
+- `.github/workflows/deploy-pages.yml` — publishes to GitHub Pages on `main` push.
 
 ## Next edits
 
-If you want to expand the deck later, add images or diagrams under an `assets/` directory and reference them from `slides.md`.
+Add images or diagrams under `assets/` and reference them from `slides.qmd`.
+For infrastructure diagrams, use D2 (` ```{.d2} `). For flowcharts, use Mermaid (` ```{mermaid} `).

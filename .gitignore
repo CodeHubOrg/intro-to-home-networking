@@ -3,3 +3,11 @@ dist/
 .vscode/
 .DS_Store
 *.log
+
+# Quarto
+/.quarto/
+**/*.quarto_ipynb
+
+# Quarto render output
+/slides.html
+/slides_files/

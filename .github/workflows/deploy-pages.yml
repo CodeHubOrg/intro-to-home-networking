@@ -5,30 +5,39 @@ on:
     branches:
       - main
     paths:
-      - slides.md
+      - slides.qmd
+      - _quarto.yml
+      - custom.scss
       - assets/**
-      - scripts/**
-      - docker-compose.kroki.yml
       - package.json
       - pnpm-lock.yaml
+      - pnpm-workspace.yaml
       - .github/workflows/deploy-pages.yml
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.9.38
+
+      - name: Install D2
+        run: |
+          curl -fsSL https://d2lang.com/install.sh | sh -s -- --version v0.7.1 --prefix "$HOME/.local"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Enable Corepack
         run: corepack enable
@@ -39,50 +48,8 @@ jobs:
           node-version: 20.19.0
           cache: pnpm
 
-      - name: Install dependencies
+      - name: Install Node dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Start Kroki services
-        run: docker compose -f docker-compose.kroki.yml up -d
-
-      - name: Wait for Kroki to become ready
-        run: |
-          for attempt in {1..30}; do
-            if curl -fsS http://127.0.0.1:8000/health > /dev/null; then
-              echo "Kroki is ready"
-              exit 0
-            fi
-            sleep 2
-          done
-
-          echo "Kroki failed to become ready" >&2
-          docker compose -f docker-compose.kroki.yml logs >&2 || true
-          exit 1
-
-      - name: Build slides
-        env:
-          KROKI_ENDPOINT: http://127.0.0.1:8000
-        run: pnpm build
-
-      - name: Stop Kroki services
-        if: always()
-        run: docker compose -f docker-compose.kroki.yml down --remove-orphans
-
-      - name: Add GitHub Pages marker
-        run: touch dist/.nojekyll
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish to GitHub Pages
+        run: quarto publish gh-pages --no-prompt
