@@ -22,7 +22,7 @@ jobs:
       # The review needs the repo checked out (with full history so it can
       # diff the PR against its base); without this the action fails with
       # "fatal: not a git repository".
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: anthropics/claude-code-action@v1
