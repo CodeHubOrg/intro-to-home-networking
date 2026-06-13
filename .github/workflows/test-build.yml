@@ -73,4 +73,5 @@ jobs:
         run: docker compose -f docker-compose.kroki.yml down --remove-orphans
 
       - name: Verify output file exists
-        run: test -f dist/index.html && echo "Build successful: dist/index.html exists"
+        run: |
+          test -f dist/index.html && echo "Build successful: dist/index.html exists"
