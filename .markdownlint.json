@@ -1,11 +1,11 @@
 {
-  "extends": "markdownlint/style",
   "MD001": false,
   "MD022": false,
   "MD024": false,
   "MD025": false,
   "MD032": false,
   "MD034": false,
+  "MD036": false,
   "heading-style": {
     "style": "consistent"
   },

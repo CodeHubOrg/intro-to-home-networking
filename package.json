@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "packageManager": "pnpm@11.3.0",
   "engines": {
-    "node": ">=20.19.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "render": "quarto render slides.qmd"
