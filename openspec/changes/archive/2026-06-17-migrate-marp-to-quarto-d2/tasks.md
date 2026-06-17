@@ -35,7 +35,7 @@
 - [x] 5.2 Update `test-build.yml` path triggers to watch `slides.qmd`, `_quarto.yml`, `custom.scss`, `assets/**` instead of `slides.md`, `docker-compose.kroki.yml`, `scripts/**`
 - [x] 5.3 Rewrite `.github/workflows/deploy-pages.yml`: same install steps as test-build, then `quarto publish gh-pages --no-prompt`
 - [x] 5.4 Remove all Docker Compose steps and `KROKI_ENDPOINT` references from both workflows
-- [ ] 5.5 Push a test branch and confirm both workflows pass in CI
+- [x] 5.5 Push a test branch and confirm both workflows pass in CI
 
 ## 6. Verification
 
