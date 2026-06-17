@@ -13,6 +13,11 @@ on:
       - custom.scss
       - assets/**
       - _extensions/**
+      - README.md
+      - .markdownlint.json
+      - .markdownlint-cli2.jsonc
+      - package.json
+      - pnpm-lock.yaml
       - .github/workflows/test-build.yml
   pull_request:
     paths:
@@ -21,6 +26,11 @@ on:
       - custom.scss
       - assets/**
       - _extensions/**
+      - README.md
+      - .markdownlint.json
+      - .markdownlint-cli2.jsonc
+      - package.json
+      - pnpm-lock.yaml
 
 jobs:
   build:
@@ -44,3 +54,24 @@ jobs:
 
       - name: Verify output exists
         run: test -f index.html && echo "Build successful: index.html exists"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.16.0
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint Markdown
+        run: pnpm run lint
