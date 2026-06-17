@@ -43,4 +43,5 @@ jobs:
         run: quarto render slides.qmd
 
       - name: Verify output exists
-        run: test -f index.html && echo "Build successful: index.html exists"
+        run: |
+          test -f index.html && echo "Build successful: index.html exists"
