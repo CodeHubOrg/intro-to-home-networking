@@ -4,5 +4,13 @@ dist/
 .DS_Store
 *.log
 
+# Quarto
+/.quarto/
+**/*.quarto_ipynb
+
+# Quarto render output
+/index.html
+/slides_files/
+
 # Claude Code local settings (personal permission allowlist)
 .claude/settings.local.json
