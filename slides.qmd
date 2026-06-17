@@ -60,15 +60,15 @@ I'm on [LinkedIn](https://www.linkedin.com/in/jamesrennison)
 
 **The generous hosts of our IRL meetups**
 
-![](./assets/sponsors/sponsors-desklodge.png){width=220px}
+![DeskLodge](./assets/sponsors/sponsors-desklodge.png){width=220px}
 
 **The magnificent financial contributors**
 
-![](./assets/sponsors/sponsors-io-academy.webp){width=220px}
+![IO Academy](./assets/sponsors/sponsors-io-academy.webp){width=220px}
 
 **The newest sponsor and hosts of our website**
 
-![](./assets/sponsors/sponsors-tuppenny-well.svg){width=220px}
+![Tuppenny Well](./assets/sponsors/sponsors-tuppenny-well.svg){width=220px}
 
 ### Any questions?
 

@@ -7,9 +7,11 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "render": "quarto render slides.qmd"
+    "render": "quarto render slides.qmd",
+    "lint": "markdownlint-cli2"
   },
   "devDependencies": {
-    "@fission-ai/openspec": "^1.4.1"
+    "@fission-ai/openspec": "^1.4.1",
+    "markdownlint-cli2": "^0.22.1"
   }
 }

@@ -1,0 +1,17 @@
+{
+  // Files to lint. markdownlint-cli2 does not pick up .qmd by default,
+  // so the slide deck is listed explicitly alongside the prose docs.
+  // Rule config lives in .markdownlint.json (auto-discovered).
+  "globs": [
+    "README.md",
+    "slides.qmd"
+  ],
+  // Tool-managed or vendored Markdown we don't hand-author:
+  // openspec/ is generated and rewritten by the OpenSpec CLI,
+  // _extensions/ is a vendored Quarto extension.
+  "ignores": [
+    "openspec/**",
+    "_extensions/**",
+    "node_modules/**"
+  ]
+}
